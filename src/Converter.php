@@ -73,12 +73,17 @@ class Converter {
 		$signature = hash_hmac( 'sha256', $string_to_sign, $signature_key );
 
 		$request_url = 'https://' . $host . $uri;
+		$headers = array(
+			'Content-Type'  => 'application/json',
+			'X-Amz-Date'    => $datetime_stamp,
+			'Host'          => $host,
+			'Authorization' => $algorithm
+				. ' Credential=' . $access_key . '/' . $credential_scope
+				. ', SignedHeaders=' . $signed_headers
+				. ', Signature=' . $signature,
+		);
 		$response = wp_remote_post( $request_url, array(
-			'headers'      => array(
-				'Content-Type'  => 'application/json',
-				'X-Amz-Date'    => $datetime_stamp,
-				'Authorization' => $algorithm . ' Credential=' . $access_key . '/' . $credential_scope . ', ' . 'SignedHeaders=' . $signed_headers . ', Signature=' . $signature,
-			),
+			'headers'      => $headers,
 			'body'         => $request_body,
 		) );
 		$response_code = wp_remote_retrieve_response_code( $response );
