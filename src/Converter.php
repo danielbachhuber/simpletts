@@ -22,8 +22,11 @@ class Converter {
 	 */
 	public static function create_audio_attachment_from_text( $text ) {
 
-		$access_key = 'AKIAIAI3DYAPFXZEKQNA';
-		$secret_key = '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';
+		$access_key = get_option( 'simpletts_access_key' );
+		$secret_key = get_option( 'simpletts_secret_key' );
+		if ( empty( $access_key ) || empty( $secret_key ) ) {
+			return new WP_Error( 'missing-config', 'Both simpletts_access_key and simpletts_secret_key must be set.', 'simpletts' );
+		}
 
 		$request_body = array(
 			'Text'         => $text,
