@@ -29,7 +29,8 @@ class Converter {
 			'VoiceId'      => 'Joanna',
 		);
 		$region = 'us-west-2';
-		$host = 'polly.' . $region . '.amazonaws.com';
+		$service = 'polly';
+		$host = $service . '.' . $region . '.amazonaws.com';
 		$datetime_stamp = date( 'Ymd\THis\Z' );
 		$date_stamp = date( 'Ymd' );
 		$request_body = json_encode( $request_body );
@@ -58,7 +59,7 @@ class Converter {
 		$credential_scope = implode( '/', array(
 			$date_stamp,
 			$region,
-			'polly',
+			$service,
 			'aws4_request',
 		) );
 		$string_to_sign = implode( PHP_EOL, array(
@@ -68,7 +69,7 @@ class Converter {
 			hash( 'sha256', $canonical_request ),
 		) );
 
-		$signature_key = self::get_signature_key( $access_key, $date_stamp, $region, $service );
+		$signature_key = self::get_signature_key( $secret_key, $date_stamp, $region, $service );
 		$signature = hash_hmac( 'sha256', $string_to_sign, $signature_key );
 
 		$request_url = 'https://' . $host . $uri;
@@ -103,14 +104,14 @@ class Converter {
 	/**
 	 * Create an AWS4 signature key from various input.
 	 *
-	 * @param string $key        AWS access key.
+	 * @param string $secret_key AWS secret key.
 	 * @param string $date_stamp Date stamp.
 	 * @param string $region     AWS region.
 	 * @param string $service    AWS service.
 	 * @return string
 	 */
-	private static function get_signature_key( $key, $date_stamp, $region, $service ) {
-		$kdate = hash_hmac( 'sha256', $date_stamp, 'AWS4' . $key );
+	private static function get_signature_key( $secret_key, $date_stamp, $region, $service ) {
+		$kdate = hash_hmac( 'sha256', $date_stamp, 'AWS4' . $secret_key );
 		$kregion = hash_hmac( 'sha256', $region, $kdate );
 		$kservice = hash_hmac( 'sha256', $service, $kregion );
 		return hash_hmac( 'sha256', 'aws4_request', $kservice );
