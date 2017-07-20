@@ -24,7 +24,7 @@ module.exports = function( grunt ) {
 			},
 			compile: {
 				files: {
-					'assets/css/simpletts.css' : 'assets/css/scss/simpletts.scss',
+					'assets/css/editor.css' : 'assets/css/scss/editor.scss',
 				}
 			}
 		},

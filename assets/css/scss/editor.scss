@@ -1,0 +1,47 @@
+@import "components/core-modal";
+@import "components/convert-form";
+
+.simpletts-modal-container {
+
+	.simpletts-frame-title,
+	.simpletts-frame-content,
+	.simpletts-frame-toolbar {
+		left: 0;
+	}
+
+	.simpletts-state-creating,
+	.simpletts-state-editing {
+		display: none;
+	}
+
+	&.simpletts-state-creating .simpletts-state-creating {
+		display: inherit;
+	}
+
+	&.simpletts-state-editing .simpletts-state-editing {
+		display: inherit;
+	}
+
+}
+
+.tr-temp-hide {
+	display: none !important;
+}
+
+#wp-link {
+	#link-options {
+		.link-nofollow {
+			padding: 3px 0 0;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			label span {
+				width: 84px;
+			}
+		}
+	}
+}
+
+.has-text-field #wp-link .query-results {
+	top: 223px;
+}

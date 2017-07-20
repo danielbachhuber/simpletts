@@ -46,6 +46,9 @@ if ( version_compare( $GLOBALS['wp_version'], '4.4', '<' )
 	return;
 }
 
+add_action( 'wp_enqueue_editor', array( 'Simpletts\Assets', 'action_wp_enqueue_editor' ) );
+add_action( 'media_buttons', array( 'Simpletts\Editor', 'action_media_buttons' ) );
+
 if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
 	require_once dirname( __FILE__ ) . '/vendor/autoload.php';
 }

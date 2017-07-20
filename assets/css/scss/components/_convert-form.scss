@@ -1,0 +1,37 @@
+.simpletts-modal-container {
+	form {
+		margin-left: auto;
+		margin-right: auto;
+		max-width: 860px;
+		padding-left: 30px;
+		padding-right: 30px;
+	}
+
+	fieldset {
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+
+	label {
+		display: block;
+		font-size: 16px;
+		margin-bottom: 10px;
+	}
+
+	input,
+	textarea {
+		border: 1px solid #ddd;
+		box-shadow: inset 0 1px 2px rgba( 0, 0, 0, 0.07 );
+		background-color: #fff;
+		color: #333;
+		outline: none;
+		transition: 0.05s border-color ease-in-out;
+		max-width: 100%;
+	}
+
+	textarea {
+		width: 100%;
+		max-width: 100%;
+		min-height: 300px;
+	}
+}

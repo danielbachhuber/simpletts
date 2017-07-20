@@ -22,6 +22,9 @@ class Converter {
 	 */
 	public static function create_audio_attachment_from_text( $text ) {
 
+		$access_key = 'AKIAIAI3DYAPFXZEKQNA';
+		$secret_key = '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';
+
 		$request_body = array(
 			'Text'         => $text,
 			'TextType'     => 'text',
