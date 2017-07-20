@@ -50,6 +50,11 @@
 				this.container.removeClass('simpletts-state-creating simpletts-state-editing');
 				$( '.simpletts-frame-content', this.container ).empty();
 			}, this );
+
+			if ( ! convert ) {
+				hideContainer();
+				return;
+			}
 		}
 	}
 
