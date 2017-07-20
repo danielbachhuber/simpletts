@@ -50,7 +50,7 @@ class Converter {
 			$method,
 			$uri,
 			$query_params,
-			$canonical_headers,
+			$canonical_headers . PHP_EOL,
 			$signed_headers,
 			$payload_hash,
 		) );
