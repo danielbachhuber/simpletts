@@ -116,10 +116,10 @@ class Converter {
 	 * @return string
 	 */
 	private static function get_signature_key( $secret_key, $date_stamp, $region, $service ) {
-		$kdate = hash_hmac( 'sha256', $date_stamp, 'AWS4' . $secret_key );
-		$kregion = hash_hmac( 'sha256', $region, $kdate );
-		$kservice = hash_hmac( 'sha256', $service, $kregion );
-		return hash_hmac( 'sha256', 'aws4_request', $kservice );
+		$kdate = hash_hmac( 'sha256', $date_stamp, 'AWS4' . $secret_key, true );
+		$kregion = hash_hmac( 'sha256', $region, $kdate, true );
+		$kservice = hash_hmac( 'sha256', $service, $kregion, true );
+		return hash_hmac( 'sha256', 'aws4_request', $kservice, true );
 	}
 
 }
