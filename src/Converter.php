@@ -17,7 +17,7 @@ class Converter {
 	/**
 	 * Convert text to speech
 	 *
-	 * @param string $text Text to convert.
+	 * @param string $text      Text to convert.
 	 * @return integer|WP_Error Attachment ID on success, WP_Error on failure.
 	 */
 	public static function create_audio_attachment_from_text( $text ) {
@@ -102,8 +102,22 @@ class Converter {
 			return $response;
 		}
 
-		error_log( 'did it' );
-
+		$fname = 'simpletts-' . substr( $signature, 0, 7 );
+		$tmp = wp_tempnam( $fname );
+		$ret = file_put_contents( $tmp, $response_body );
+		if ( ! $ret ) {
+			return new WP_Error( 'convert-failure', __( 'Could not write audio file to tmp directory.', 'simpletts' ) );
+		}
+		$file_array = array(
+			'name'     => $fname . '.mp3',
+			'tmp_name' => $tmp,
+		);
+		$id = media_handle_sideload( $file_array, 0 );
+		if ( is_wp_error( $id ) ) {
+			@unlink( $tmp );
+			return $id;
+		}
+		return $id;
 	}
 
 	/**
