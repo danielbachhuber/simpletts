@@ -85,11 +85,23 @@
 			wp.ajax.post( this.action, formData )
 			.done( $.proxy( function( response ) {
 				if ( wp && wp.media && wp.media.editor ) {
-					var frame = wp.media.editor.open( this.editor_id );
-					var selection = frame.state().get('selection');
-					if ( response.attachment_id ) {
-						selection.add( wp.media.attachment( response.attachment_id ) );
+					var id = wp.media.editor.id( this.editor_id );
+					wp.media.editor.activeEditor = this.editor_id;
+					var workflow = wp.media.editor.get( this.editor_id );
+
+					// Redo workflow if state has changed
+					if ( ! workflow || ( workflow.options && options.state !== workflow.options.state ) ) {
+						workflow = wp.media.editor.add( this.editor_id );
 					}
+
+					wp.media.frame = workflow;
+					wp.media.frame.on( 'open', function(){
+						var selection = wp.media.frame.state().get('selection');
+						if ( response.attachment_id ) {
+							selection.add( wp.media.attachment( response.attachment_id ) );
+						}
+					});
+					wp.media.frame.open();
 				}
 				hideContainer();
 			}, this ) )
