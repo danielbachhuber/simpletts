@@ -1,6 +1,10 @@
-(function($){
+(function($, wp){
 
 	var Editor = {
+
+		action: 'simpletts_convert_text',
+		editor_id: null,
+
 		initialize: function() {
 			this.container = $('.simpletts-modal-container');
 			this.bindEvents();
@@ -11,6 +15,8 @@
 				var elem = $( event.currentTarget ),
 					editorId = elem.data('editor');
 
+				this.editor_id = editorId;
+
 				event.preventDefault();
 				// Prevents Opera from showing the outline of the button above the modal.
 				//
@@ -19,14 +25,19 @@
 
 				this.open();
 			}, this ) );
+			$('.simpletts-button-insert', this.container).on('click', $.proxy( function( event ){
+				this.close( true );
+			}, this ));
+			$('.simpletts-modal-close', this.container).on('click', $.proxy( function( event ){
+				this.close( false );
+			}, this ));
 		},
 
 		/**
 		 * Open the modal experience to convert text
 		 */
 		open: function( data = null ) {
-			var template = wp.template( 'simpletts-convert-text' );
-			$( '.simpletts-frame-content', this.container ).html( template( null !== data ? data : {} ) );
+			this.renderTemplate( data );
 			this.container.addClass('simpletts-state-creating');
 			$('body').addClass('simpletts-modal-open');
 			$(document).on('keydown.simpletts-escape', $.proxy( function( event ){
@@ -42,6 +53,11 @@
 			this.container.show();
 		},
 
+		renderTemplate( data = null ) {
+			var template = wp.template( 'simpletts-convert-text' );
+			$( '.simpletts-frame-content', this.container ).html( template( null !== data ? data : {} ) );
+		},
+
 		close: function( convert ) {
 			$('body').removeClass('simpletts-modal-open');
 			$(document).unbind('keydown.simpletts-escape');
@@ -55,6 +71,33 @@
 				hideContainer();
 				return;
 			}
+
+			var formData = {};
+			$.each( $('form', this.container ).serializeArray(), function(_, kv) {
+				if (formData.hasOwnProperty(kv.name)) {
+					formData[kv.name] = $.makeArray(formData[kv.name]);
+					formData[kv.name].push(kv.value);
+				} else {
+					formData[kv.name] = kv.value;
+				}
+			});
+
+			wp.ajax.post( this.action, formData )
+			.done( $.proxy( function( response ) {
+				if ( wp && wp.media && wp.media.editor ) {
+					var frame = wp.media.editor.open( this.editor_id );
+					var selection = frame.state().get('selection');
+					if ( response.attachment_id ) {
+						selection.add( wp.media.attachment( response.attachment_id ) );
+					}
+				}
+				hideContainer();
+			}, this ) )
+			.fail( $.proxy( function( response ) {
+				formData.errorMessage = response.message;
+				this.renderTemplate( formData );
+			}, this ) );
+
 		}
 	}
 
@@ -62,4 +105,4 @@
 		Editor.initialize();
 	});
 
-}(jQuery))
+}(jQuery, window.wp))

@@ -1,9 +1,14 @@
 <script type="text/html" id="tmpl-simpletts-convert-text">
+	<# if ( data.errorMessage ) { #>
+		<div class="error"><p>{{ data.errorMessage }}</p></div>
+	<# } #>
 	<form>
 		<fieldset>
 			<label for="text"><?php esc_html_e( 'Text to convert', 'simpletts' ); ?></label>
-			<textarea name="text">{{ data.text }}</textarea>
+			<textarea name="text" required>{{ data.text }}</textarea>
 		</fieldset>
+		<input type="hidden" name="post_id" value="<?php echo (int) get_the_ID(); ?>" />
+		<?php wp_nonce_field( 'simpletts', 'nonce' ); ?>
 	</form>
 </script>
 
@@ -23,7 +28,7 @@
 				<div class="simpletts-frame-toolbar">
 					<div class="simpletts-toolbar">
 						<div class="simpletts-toolbar-primary search-form">
-							<button type="button" class="button simpletts-button simpletts-state-creating button-primary button-large simpletts-button-convert"><?php esc_html_e( 'Convert Text to Speech', 'simpletts' ); ?></button>
+							<button type="button" class="button simpletts-button simpletts-state-creating button-primary button-large simpletts-button-insert"><?php esc_html_e( 'Convert Text to Speech', 'simpletts' ); ?></button>
 						</div>
 					</div>
 				</div>
