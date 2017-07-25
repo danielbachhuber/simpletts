@@ -46,6 +46,8 @@ if ( version_compare( $GLOBALS['wp_version'], '4.4', '<' )
 	return;
 }
 
+add_action( 'admin_init', array( 'Simpletts\Settings', 'action_admin_init' ) );
+add_action( 'admin_menu', array( 'Simpletts\Settings', 'action_admin_menu' ) );
 add_action( 'wp_ajax_simpletts_convert_text', array( 'Simpletts\Admin_Ajax', 'handle_ajax_convert_text' ) );
 add_action( 'wp_enqueue_editor', array( 'Simpletts\Assets', 'action_wp_enqueue_editor' ) );
 add_action( 'media_buttons', array( 'Simpletts\Editor', 'action_media_buttons' ) );

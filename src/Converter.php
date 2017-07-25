@@ -22,8 +22,8 @@ class Converter {
 	 */
 	public static function create_audio_attachment_from_text( $text ) {
 
-		$access_key = get_option( 'simpletts_access_key' );
-		$secret_key = get_option( 'simpletts_secret_key' );
+		$access_key = Settings::get_option( 'simpletts_access_key' );
+		$secret_key = Settings::get_option( 'simpletts_secret_key' );
 		if ( empty( $access_key ) || empty( $secret_key ) ) {
 			return new WP_Error( 'missing-config', 'Both simpletts_access_key and simpletts_secret_key must be set.', 'simpletts' );
 		}
@@ -34,7 +34,7 @@ class Converter {
 			'OutputFormat' => 'mp3',
 			'VoiceId'      => 'Joanna',
 		);
-		$region = 'us-west-2';
+		$region = Settings::get_option( 'simpletts_aws_region' );
 		$service = 'polly';
 		$host = $service . '.' . $region . '.amazonaws.com';
 		$datetime_stamp = date( 'Ymd\THis\Z' );
