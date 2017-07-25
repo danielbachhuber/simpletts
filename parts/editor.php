@@ -1,3 +1,12 @@
+<?php
+/**
+ * Renders modal UX for the WordPress editor.
+ *
+ * @package Simpletts
+ */
+
+?>
+
 <script type="text/html" id="tmpl-simpletts-convert-text">
 	<# if ( data.errorMessage ) { #>
 		<div class="error"><p>{{ data.errorMessage }}</p></div>

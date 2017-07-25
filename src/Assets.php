@@ -27,6 +27,9 @@ class Assets {
 		}
 	}
 
+	/**
+	 * Render the editor template in the footer.
+	 */
 	public static function action_admin_footer_render_template() {
 		static $rendered_once;
 		if ( isset( $rendered_once ) ) {
@@ -39,8 +42,8 @@ class Assets {
 	/**
 	 * Get a rendered template.
 	 *
-	 * @param string $template
-	 * @param array $vars
+	 * @param string $template Template to render.
+	 * @param array  $vars     Any variables to include in the template.
 	 * @return string
 	 */
 	private static function get_template_part( $template, $vars = array() ) {
