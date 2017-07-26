@@ -1,3 +1,12 @@
+<?php
+/**
+ * Renders modal UX for the WordPress editor.
+ *
+ * @package Simpletts
+ */
+
+?>
+
 <script type="text/html" id="tmpl-simpletts-convert-text">
 	<# if ( data.errorMessage ) { #>
 		<div class="error"><p>{{ data.errorMessage }}</p></div>
@@ -21,9 +30,7 @@
 				<div class="simpletts-frame-title">
 					<h1 class="simpletts-state-creating"><?php echo esc_html( 'Convert Text to Speech' ); ?></h1>
 				</div>
-				<div class="simpletts-frame-content" tabindex="-1">
-					<?php /** Set dynamically with JS **/ ?>
-				</div>
+				<div class="simpletts-frame-content" tabindex="-1"></div>
 
 				<div class="simpletts-frame-toolbar">
 					<div class="simpletts-toolbar">

@@ -120,7 +120,7 @@ class Converter {
 		);
 		$id = media_handle_sideload( $file_array, 0 );
 		if ( is_wp_error( $id ) ) {
-			@unlink( $tmp );
+			unlink( $tmp );
 			return $id;
 		}
 		return $id;
