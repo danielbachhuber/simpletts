@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name:     Simple Text-to-Speech
- * Plugin URI:      https://simpletts.io
- * Description:     Simple Text-to-Speech for WordPress
+ * Plugin URI:      https://danielbachhuber.com/simpletts/
+ * Description:     Create affordable, high-quality audio recordings of your blog posts.
  * Author:          Daniel Bachhuber, Hand Built
  * Author URI:      https://handbuilt.co
  * Text Domain:     simpletts
