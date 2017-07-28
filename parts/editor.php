@@ -22,6 +22,7 @@
 			Simpletts\Settings::render_voice_select_field( array(
 				'option' => 'simpletts_default_voice',
 				'name'   => 'voice',
+				'value'  => '{{ data.voice }}'
 			) );
 			?>
 		<input type="hidden" name="post_id" value="<?php echo (int) get_the_ID(); ?>" />

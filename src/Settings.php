@@ -108,7 +108,11 @@ class Settings {
 	 * @param array $args Arguments to use rendering the field.
 	 */
 	public static function render_voice_select_field( $args ) {
-		$value = self::get_option( $args['option'] );
+		if ( isset( $args['value'] ) ) {
+			$value = $args['value'];
+		} else {
+			$value = self::get_option( $args['option'] );
+		}
 		$opt_groups = array();
 		$voices = Converter::get_available_voices();
 		foreach ( $voices as $voice ) {

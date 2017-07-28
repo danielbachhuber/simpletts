@@ -23,7 +23,10 @@
 				// See: https://core.trac.wordpress.org/ticket/22445
 				elem.blur();
 
-				this.open();
+				var data = {
+					voice: elem.data('simpletts-default-voice'),
+				};
+				this.open( data );
 			}, this ) );
 			$('.simpletts-button-insert', this.container).on('click', $.proxy( function( event ){
 				this.close( true );
@@ -56,6 +59,9 @@
 		renderTemplate( data = null ) {
 			var template = wp.template( 'simpletts-convert-text' );
 			$( '.simpletts-frame-content', this.container ).html( template( null !== data ? data : {} ) );
+			if ( typeof data.voice !== 'undefined' ) {
+				$( '.simpletts-frame-content select[name="voice"]' ).val( data.voice );
+			}
 		},
 
 		close: function( convert ) {
