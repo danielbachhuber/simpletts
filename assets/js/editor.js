@@ -13,9 +13,19 @@
 		bindEvents: function() {
 			$('button.simpletts-convert-text').on('click', $.proxy( function( event ){
 				var elem = $( event.currentTarget ),
-					editorId = elem.data('editor');
+					editorId = elem.data('editor'),
+					text = null;
 
 				this.editor_id = editorId;
+
+				if ( typeof tinymce !== 'undefined' && tinymce.get( editorId ) ) {
+					var editor = tinymce.get( editorId );
+					if ( editor.selection.getContent({format:'text'}).length ) {
+						text = editor.selection.getContent({format:'text'});
+					} else {
+						text = editor.getContent({format:'text'});
+					}
+				}
 
 				event.preventDefault();
 				// Prevents Opera from showing the outline of the button above the modal.
@@ -25,6 +35,7 @@
 
 				var data = {
 					voice: elem.data('simpletts-default-voice'),
+					text: text,
 				};
 				this.open( data );
 			}, this ) );
@@ -60,8 +71,11 @@
 			var template = wp.template( 'simpletts-convert-text' );
 			$( '.simpletts-frame-content', this.container ).html( template( null !== data ? data : {} ) );
 			if ( typeof data.voice !== 'undefined' ) {
-				$( '.simpletts-frame-content select[name="voice"]' ).val( data.voice );
+				$( 'select[name="voice"]', this.container ).val( data.voice );
 			}
+			setTimeout($.proxy(function(){
+				$( 'textarea[name="text"]', this.container ).focus();
+			},this),0);
 		},
 
 		close: function( convert ) {
