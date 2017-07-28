@@ -31,7 +31,12 @@ class Admin_Ajax {
 			));
 		}
 
-		$attachment_id = Converter::create_audio_attachment_from_text( $_POST['text'] );
+		$voice = false;
+		if ( ! empty( $_POST['voice'] ) ) {
+			$voice = sanitize_text_field( $_POST['voice'] );
+		}
+
+		$attachment_id = Converter::create_audio_attachment_from_text( $_POST['text'], $voice );
 		if ( is_wp_error( $attachment_id ) ) {
 			wp_send_json_error( array(
 				'message'     => $attachment_id->get_error_message(),

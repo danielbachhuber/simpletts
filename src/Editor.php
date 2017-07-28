@@ -21,7 +21,7 @@ class Editor {
 	 */
 	public static function action_media_buttons( $editor_id ) {
 		?>
-		<button type="button" class="button simpletts-convert-text" data-editor="<?php echo esc_attr( $editor_id ); ?>">
+		<button type="button" class="button simpletts-convert-text" data-editor="<?php echo esc_attr( $editor_id ); ?>" data-simpletts-default-voice="<?php echo esc_attr( Settings::get_option( 'simpletts_default_voice' ) ); ?>">
 			<span class="wp-media-buttons-icon dashicons dashicons-controls-volumeon"></span>
 			<?php esc_html_e( 'Convert Text to Speech', 'simplettts' ); ?>
 		</button>
