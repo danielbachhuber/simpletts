@@ -385,6 +385,46 @@ class Converter {
 				'gender'  => 'Female',
 				'lang'    => 'Russian (ru-RU)',
 			),
+			// Spanish (Castilian) (es-ES).
+			array(
+				'name'    => 'Conchita',
+				'gender'  => 'Female',
+				'lang'    => 'Spanish (Castilian) (es-ES)',
+			),
+			array(
+				'name'    => 'Enrique',
+				'gender'  => 'Male',
+				'lang'    => 'Spanish (Castilian) (es-ES)',
+			),
+			// Spanish (Latin American) (es-US).
+			array(
+				'name'    => 'Miguel',
+				'gender'  => 'Male',
+				'lang'    => 'Spanish (Latin American) (es-US)',
+			),
+			array(
+				'name'    => 'Penelope',
+				'gender'  => 'Female',
+				'lang'    => 'Spanish (Latin American) (es-US)',
+			),
+			// Swedish (sv-SE).
+			array(
+				'name'    => 'Astrid',
+				'gender'  => 'Female',
+				'lang'    => 'Swedish (sv-SE)',
+			),
+			// Turkish (tr-TR).
+			array(
+				'name'    => 'Filiz',
+				'gender'  => 'Female',
+				'lang'    => 'Turkish (tr-TR)',
+			),
+			// Welsh (cy-GB).
+			array(
+				'name'    => 'Gwyneth',
+				'gender'  => 'Female',
+				'lang'    => 'Welsh (cy-GB)',
+			),
 		);
 	}
 
