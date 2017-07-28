@@ -368,7 +368,7 @@ class Converter {
 				'gender'  => 'Female',
 				'lang'    => 'Portuguese (European) (pt-PT)',
 			),
-			// Romanian (ro-RO)
+			// Romanian (ro-RO).
 			array(
 				'name'    => 'Carmen',
 				'gender'  => 'Female',
