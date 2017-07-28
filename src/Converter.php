@@ -18,9 +18,10 @@ class Converter {
 	 * Convert text to speech
 	 *
 	 * @param string $text      Text to convert.
+	 * @param string $voice     Voice to use.
 	 * @return integer|WP_Error Attachment ID on success, WP_Error on failure.
 	 */
-	public static function create_audio_attachment_from_text( $text ) {
+	public static function create_audio_attachment_from_text( $text, $voice = false ) {
 
 		$access_key = Settings::get_option( 'simpletts_access_key' );
 		$secret_key = Settings::get_option( 'simpletts_secret_key' );
@@ -28,11 +29,22 @@ class Converter {
 			return new WP_Error( 'missing-config', 'Both simpletts_access_key and simpletts_secret_key must be set.', 'simpletts' );
 		}
 
+		$default_voice = Settings::get_option( 'simpletts_default_voice' );
+		if ( ! $voice ) {
+			$voice = $default_voice;
+		}
+		$voices = self::get_available_voices();
+		$voices = wp_list_pluck( $voices, 'name' );
+		if ( ! in_array( $voice, $voices, true ) ) {
+			// translators: Placeholder is the voice passed through.
+			return new WP_Error( 'invalid-voice', sprintf( __( "'%s' is not available as a voice", 'simpletts' ), $voice ) );
+		}
+
 		$request_body = array(
 			'Text'         => $text,
 			'TextType'     => 'text',
 			'OutputFormat' => 'mp3',
-			'VoiceId'      => 'Joanna',
+			'VoiceId'      => $voice,
 		);
 		$region = Settings::get_option( 'simpletts_aws_region' );
 		$service = 'polly';
@@ -140,6 +152,92 @@ class Converter {
 		$kregion = hash_hmac( 'sha256', $region, $kdate, true );
 		$kservice = hash_hmac( 'sha256', $service, $kregion, true );
 		return hash_hmac( 'sha256', 'aws4_request', $kservice, true );
+	}
+
+	/**
+	 * Get available voices
+	 *
+	 * @return array
+	 */
+	public static function get_available_voices() {
+		return array(
+			// Danish (da-DK).
+			array(
+				'name'    => 'Mads',
+				'gender'  => 'Male',
+				'lang'    => 'Danish (da-DK)',
+			),
+			array(
+				'name'    => 'Naja',
+				'gender'  => 'Female',
+				'lang'    => 'Danish (da-DK)',
+			),
+			// Dutch (nl-NL).
+			array(
+				'name'    => 'Ruben',
+				'gender'  => 'Male',
+				'lang'    => 'Dutch (nl-NL)',
+			),
+			array(
+				'name'    => 'Lotte',
+				'gender'  => 'Female',
+				'lang'    => 'Dutch (nl-NL)',
+			),
+			// English (Australian) (en-AU).
+			array(
+				'name'    => 'Russell',
+				'gender'  => 'Male',
+				'lang'    => 'English (Australian) (en-AU)',
+			),
+			array(
+				'name'    => 'Nicole',
+				'gender'  => 'Female',
+				'lang'    => 'English (Australian) (en-AU)',
+			),
+			// English (British) (en-GB).
+			array(
+				'name'    => 'Brian',
+				'gender'  => 'Male',
+				'lang'    => 'English (British) (en-GB)',
+			),
+			array(
+				'name'    => 'Amy',
+				'gender'  => 'Female',
+				'lang'    => 'English (British) (en-GB)',
+			),
+			array(
+				'name'    => 'Emma',
+				'gender'  => 'Female',
+				'lang'    => 'English (British) (en-GB)',
+			),
+			// English (Indian) (en-IN).
+			array(
+				'name'    => 'Raveena',
+				'gender'  => 'Female',
+				'lang'    => 'English (Indian) (en-IN)',
+			),
+			// English (US) (en-US).
+			array(
+				'name'    => 'Ivy',
+				'gender'  => 'Female',
+				'lang'    => 'English (US) (en-US)',
+			),
+			array(
+				'name'    => 'Joanna',
+				'gender'  => 'Female',
+				'lang'    => 'English (US) (en-US)',
+			),
+			array(
+				'name'    => 'Joey',
+				'gender'  => 'Male',
+				'lang'    => 'English (US) (en-US)',
+			),
+			array(
+				'name'    => 'Justin',
+				'gender'  => 'Male',
+				'lang'    => 'English (US) (en-US)',
+			),
+		);
 	}
 
 }

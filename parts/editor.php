@@ -16,6 +16,14 @@
 			<label for="text"><?php esc_html_e( 'Text to convert', 'simpletts' ); ?></label>
 			<textarea name="text" required>{{ data.text }}</textarea>
 		</fieldset>
+		<fieldset>
+			<label for="voice"><?php esc_html_e( 'Voice to use', 'simpletts' ); ?></label>
+			<?php
+			Simpletts\Settings::render_voice_select_field( array(
+				'option' => 'simpletts_default_voice',
+				'name'   => 'voice',
+			) );
+			?>
 		<input type="hidden" name="post_id" value="<?php echo (int) get_the_ID(); ?>" />
 		<?php wp_nonce_field( 'simpletts', 'nonce' ); ?>
 	</form>

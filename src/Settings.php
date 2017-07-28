@@ -16,22 +16,29 @@ class Settings {
 	 * Register settings for the plugin.
 	 */
 	public static function action_admin_init() {
-		add_settings_section( 'simpletts_settings_section', __( 'Configuration Settings', 'simpletts' ), '__return_false', 'simpletts' );
+		add_settings_section( 'simpletts_settings_section', false, '__return_false', 'simpletts' );
 		$options = array(
-			'simpletts_access_key' => __( 'Access Key', 'simpletts' ),
-			'simpletts_secret_key' => __( 'Secret Key', 'simpletts' ),
-			'simpletts_aws_region' => __( 'AWS Region', 'simpletts' ),
+			'simpletts_access_key' => array(
+				'label'        => __( 'Access Key', 'simpletts' ),
+				'render_cb'    => 'render_text_input_field',
+			),
+			'simpletts_secret_key' => array(
+				'label'        => __( 'Secret Key', 'simpletts' ),
+				'render_cb'    => 'render_text_input_field',
+			),
+			'simpletts_aws_region' => array(
+				'label'        => __( 'AWS Region', 'simpletts' ),
+				'render_cb'    => 'render_aws_region_select_field',
+			),
+			'simpletts_default_voice' => array(
+				'label'        => __( 'Default Voice', 'simpletts' ),
+				'render_cb'    => 'render_voice_select_field',
+			),
 		);
-		foreach ( $options as $option => $label ) {
-			if ( in_array( $option, array( 'simpletts_aws_region' ), true ) ) {
-				$render_cb = 'render_select_field';
-			} else {
-				$render_cb = 'render_text_input_field';
-			}
+		foreach ( $options as $option => $args ) {
 			register_setting( 'simpletts', $option );
-			add_settings_field( $option, $label, array( __CLASS__, $render_cb ), 'simpletts', 'simpletts_settings_section', array(
-				'option'   => $option,
-			) );
+			$args['option'] = $option;
+			add_settings_field( $option, $args['label'], array( __CLASS__, $args['render_cb'] ), 'simpletts', 'simpletts_settings_section', $args );
 		}
 	}
 
@@ -78,27 +85,50 @@ class Settings {
 	 *
 	 * @param array $args Arguments to use rendering the field.
 	 */
-	public static function render_select_field( $args ) {
+	public static function render_aws_region_select_field( $args ) {
 		$value = self::get_option( $args['option'] );
-		switch ( $args['option'] ) {
-			case 'simpletts_aws_region':
-				$options = array(
-					'us-east-2'    => 'US East (Ohio)',
-					'us-east-1'    => 'US East (N. Virginia)',
-					'us-west-2'    => 'US West (Oregon)',
-					'eu-west-1'    => 'EU (Ireland)',
-				);
-				break;
-			default:
-				$options = array();
-				break;
-		}
+		$options = array(
+			'us-east-2'    => 'US East (Ohio)',
+			'us-east-1'    => 'US East (N. Virginia)',
+			'us-west-2'    => 'US West (Oregon)',
+			'eu-west-1'    => 'EU (Ireland)',
+		);
 		?>
 		<select name="<?php echo esc_attr( $args['option'] ); ?>">
 			<?php foreach ( $options as $key => $label ) : ?>
 				<option value="<?php echo esc_attr( $key ); ?>" <?php selected( $key, $value ); ?>><?php echo esc_html( $label ); ?></option>
 			<?php endforeach; ?>
 		</select>
+		<?php
+	}
+
+	/**
+	 * Render a voice select field for the settings page.
+	 *
+	 * @param array $args Arguments to use rendering the field.
+	 */
+	public static function render_voice_select_field( $args ) {
+		$value = self::get_option( $args['option'] );
+		$opt_groups = array();
+		$voices = Converter::get_available_voices();
+		foreach ( $voices as $voice ) {
+			if ( ! isset( $opt_groups[ $voice['lang'] ] ) ) {
+				$opt_groups[ $voice['lang'] ] = array();
+			}
+			$opt_groups[ $voice['lang'] ][] = $voice['name'];
+		}
+		$name = isset( $args['name'] ) ? $args['name'] : $args['option'];
+		?>
+		<select name="<?php echo esc_attr( $name ); ?>">
+			<?php foreach ( $opt_groups as $lang => $options ) : ?>
+				<optgroup label="<?php echo esc_attr( $lang ); ?>">
+				<?php foreach ( $options as $voice ) : ?>
+					<option value="<?php echo esc_attr( $voice ); ?>" <?php selected( $voice, $value ); ?>><?php echo esc_html( $voice ); ?></option>
+				<?php endforeach; ?>
+				</optgroup>
+			<?php endforeach; ?>
+		</select>
+		<p class="description"><?php esc_html_e( 'Choose from one of Amazon Polly\'s available voices.', 'simpletts' ); ?></p>
 		<?php
 	}
 
@@ -112,6 +142,9 @@ class Settings {
 		switch ( $option_name ) {
 			case 'simpletts_aws_region':
 				$default = 'us-east-1';
+				break;
+			case 'simpletts_default_voice':
+				$default = 'Joanna';
 				break;
 			default:
 				$default = '';
