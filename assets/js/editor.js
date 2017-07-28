@@ -102,6 +102,9 @@
 				}
 			});
 
+			$('.simpletts-button-insert', this.container).attr('disabled', 'disabled');
+			$('input, textarea, select', this.container).attr('disabled', 'disabled');
+
 			wp.ajax.post( this.action, formData )
 			.done( $.proxy( function( response ) {
 				if ( wp && wp.media && wp.media.editor ) {
@@ -127,6 +130,7 @@
 			}, this ) )
 			.fail( $.proxy( function( response ) {
 				formData.errorMessage = response.message;
+				$('.simpletts-button-insert', this.container).removeAttr('disabled');
 				this.renderTemplate( formData );
 			}, this ) );
 
