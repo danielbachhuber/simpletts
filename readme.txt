@@ -3,7 +3,7 @@ Contributors: danielbachhuber
 Tags: text-to-speech, accessibility
 Requires at least: 4.4
 Tested up to: 4.8
-Stable tag: 0.0.0
+Stable tag: 0.1.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -22,5 +22,5 @@ The Simple Text-to-Speech plugin can be installed much like any other WordPress 
 
 == Changelog ==
 
-= 0.1.0 (??? ??, ????) =
+= 0.1.0 (July 28th, 2017) =
 * Initial release.

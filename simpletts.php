@@ -7,13 +7,13 @@
  * Author URI:      https://handbuilt.co
  * Text Domain:     simpletts
  * Domain Path:     /languages
- * Version:         0.1.0-alpha
+ * Version:         0.1.0
  * License:         GPL v3
  *
  * @package         Simpletts
  */
 
-define( 'SIMPLETTS_VERSION', '0.1.0-alpha' );
+define( 'SIMPLETTS_VERSION', '0.1.0' );
 
 /**
  * Simple Text-to-Speech Plugin
