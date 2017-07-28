@@ -13,11 +13,11 @@
 	<# } #>
 	<form>
 		<fieldset>
-			<label for="text"><?php esc_html_e( 'Text to convert', 'simpletts' ); ?></label>
+			<label for="text"><?php esc_html_e( 'What text do you want to convert?', 'simpletts' ); ?></label>
 			<textarea name="text" required>{{ data.text }}</textarea>
 		</fieldset>
 		<fieldset>
-			<label for="voice"><?php esc_html_e( 'Voice to use', 'simpletts' ); ?></label>
+			<label for="voice"><?php esc_html_e( 'Which voice would you like to use?', 'simpletts' ); ?></label>
 			<?php
 			Simpletts\Settings::render_voice_select_field( array(
 				'option' => 'simpletts_default_voice',
