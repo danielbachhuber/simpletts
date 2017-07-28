@@ -22,6 +22,7 @@
 					var editor = tinymce.get( editorId );
 					if ( editor.selection.getContent({format:'text'}).length ) {
 						text = editor.selection.getContent({format:'text'});
+						editor.selection.collapse();
 					} else {
 						text = editor.getContent({format:'text'});
 					}
@@ -107,6 +108,7 @@
 
 			wp.ajax.post( this.action, formData )
 			.done( $.proxy( function( response ) {
+				$('.simpletts-button-insert', this.container).removeAttr('disabled');
 				if ( wp && wp.media && wp.media.editor ) {
 					var id = wp.media.editor.id( this.editor_id );
 					wp.media.editor.activeEditor = this.editor_id;
@@ -121,7 +123,17 @@
 					wp.media.frame.on( 'open', function(){
 						var selection = wp.media.frame.state().get('selection');
 						if ( response.attachment_id ) {
-							selection.add( wp.media.attachment( response.attachment_id ) );
+							var attachment = wp.media.attachment( response.attachment_id );
+							// Forcefully set as audio attributes so proper UI is displayed
+							attachment.set('type', 'audio');
+							attachment.set('meta',{
+								album: false,
+								artist: false,
+								bitrate: 48000,
+								bitrate_mode: 'cbr',
+							});
+							attachment.set('filename','simpletts.mp3');
+							selection.add( attachment );
 						}
 					});
 					wp.media.frame.open();
