@@ -237,6 +237,82 @@ class Converter {
 				'gender'  => 'Male',
 				'lang'    => 'English (US) (en-US)',
 			),
+			array(
+				'name'    => 'Kendra',
+				'gender'  => 'Female',
+				'lang'    => 'English (US) (en-US)',
+			),
+			array(
+				'name'    => 'Kimberly',
+				'gender'  => 'Female',
+				'lang'    => 'English (US) (en-US)',
+			),
+			array(
+				'name'    => 'Salli',
+				'gender'  => 'Female',
+				'lang'    => 'English (US) (en-US)',
+			),
+			// English (Welsh) (en-GB-WLS).
+			array(
+				'name'    => 'Geraint',
+				'gender'  => 'Male',
+				'lang'    => 'English (Welsh) (en-GB-WLS)',
+			),
+			// French (fr-FR).
+			array(
+				'name'    => 'Celine',
+				'gender'  => 'Female',
+				'lang'    => 'French (fr-FR)',
+			),
+			array(
+				'name'    => 'Mathieu',
+				'gender'  => 'Male',
+				'lang'    => 'French (fr-FR)',
+			),
+			// French (Canadian) (fr-CA).
+			array(
+				'name'    => 'Chantal',
+				'gender'  => 'Female',
+				'lang'    => 'French (Canadian) (fr-CA)',
+			),
+			// German (de-DE).
+			array(
+				'name'    => 'Hans',
+				'gender'  => 'Male',
+				'lang'    => 'German (de-DE)',
+			),
+			array(
+				'name'    => 'Marlene',
+				'gender'  => 'Female',
+				'lang'    => 'German (de-DE)',
+			),
+			array(
+				'name'    => 'Vicki',
+				'gender'  => 'Female',
+				'lang'    => 'German (de-DE)',
+			),
+			// Icelandic (is-IS).
+			array(
+				'name'    => 'Dora',
+				'gender'  => 'Female',
+				'lang'    => 'Icelandic (is-IS)',
+			),
+			array(
+				'name'    => 'Karl',
+				'gender'  => 'Male',
+				'lang'    => 'Icelandic (is-IS)',
+			),
+			// Italian (it-IT).
+			array(
+				'name'    => 'Carla',
+				'gender'  => 'Female',
+				'lang'    => 'Italian (it-IT)',
+			),
+			array(
+				'name'    => 'Giorgio',
+				'gender'  => 'Male',
+				'lang'    => 'Italian (it-IT)',
+			),
 		);
 	}
 
