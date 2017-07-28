@@ -22,6 +22,7 @@
 					var editor = tinymce.get( editorId );
 					if ( editor.selection.getContent({format:'text'}).length ) {
 						text = editor.selection.getContent({format:'text'});
+						editor.selection.collapse();
 					} else {
 						text = editor.getContent({format:'text'});
 					}
