@@ -313,6 +313,78 @@ class Converter {
 				'gender'  => 'Male',
 				'lang'    => 'Italian (it-IT)',
 			),
+			// Japanese (ja-JP).
+			array(
+				'name'    => 'Mizuki',
+				'gender'  => 'Female',
+				'lang'    => 'Japanese (ja-JP)',
+			),
+			// Norwegian (nb-NO).
+			array(
+				'name'    => 'Liv',
+				'gender'  => 'Female',
+				'lang'    => 'Norwegian (nb-NO)',
+			),
+			// Polish (pl-PL).
+			array(
+				'name'    => 'Jacek',
+				'gender'  => 'Male',
+				'lang'    => 'Polish (pl-PL)',
+			),
+			array(
+				'name'    => 'Jan',
+				'gender'  => 'Male',
+				'lang'    => 'Polish (pl-PL)',
+			),
+			array(
+				'name'    => 'Ewa',
+				'gender'  => 'Female',
+				'lang'    => 'Polish (pl-PL)',
+			),
+			array(
+				'name'    => 'Maja',
+				'gender'  => 'Female',
+				'lang'    => 'Polish (pl-PL)',
+			),
+			// Portuguese (Brazilian) (pt-BR).
+			array(
+				'name'    => 'Ricardo',
+				'gender'  => 'Male',
+				'lang'    => 'Portuguese (Brazilian) (pt-BR)',
+			),
+			array(
+				'name'    => 'Vitoria',
+				'gender'  => 'Female',
+				'lang'    => 'Portuguese (Brazilian) (pt-BR)',
+			),
+			// Portuguese (European) (pt-PT).
+			array(
+				'name'    => 'Cristiano',
+				'gender'  => 'Male',
+				'lang'    => 'Portuguese (European) (pt-PT)',
+			),
+			array(
+				'name'    => 'Ines',
+				'gender'  => 'Female',
+				'lang'    => 'Portuguese (European) (pt-PT)',
+			),
+			// Romanian (ro-RO)
+			array(
+				'name'    => 'Carmen',
+				'gender'  => 'Female',
+				'lang'    => 'Romanian (ro-RO)',
+			),
+			// Russian (ru-RU).
+			array(
+				'name'    => 'Maxim',
+				'gender'  => 'Male',
+				'lang'    => 'Russian (ru-RU)',
+			),
+			array(
+				'name'    => 'Tatyana',
+				'gender'  => 'Female',
+				'lang'    => 'Russian (ru-RU)',
+			),
 		);
 	}
 
