@@ -120,7 +120,8 @@ class Converter {
 			return $response;
 		}
 
-		$fname = 'simpletts-' . substr( $signature, 0, 7 );
+		$filename = 'simpletts-' . substr( $signature, 0, 7 );
+		$fname = apply_filters( 'simpletts_file_name', $filename );
 		$tmp = wp_tempnam( $fname );
 		$ret = file_put_contents( $tmp, $response_body );
 		if ( ! $ret ) {
