@@ -120,10 +120,11 @@ class Converter {
 			return $response;
 		}
 
-		$filename = 'simpletts-' . substr( $signature, 0, 7 );
-		$fname = apply_filters( 'simpletts_file_name', $filename );
-		$tmp = wp_tempnam( $fname );
-		$ret = file_put_contents( $tmp, $response_body );
+		$ramtext  = substr( $signature, 0, 7 );
+		$filename = 'simpletts-' . $ramtext;
+		$fname    = apply_filters( 'simpletts_file_name', $filename, $ramtext );
+		$tmp      = wp_tempnam( $fname );
+		$ret      = file_put_contents( $tmp, $response_body );
 		if ( ! $ret ) {
 			return new WP_Error( 'convert-failure', __( 'Could not write audio file to tmp directory.', 'simpletts' ) );
 		}
