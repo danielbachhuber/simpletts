@@ -115,8 +115,8 @@
 					var workflow = wp.media.editor.get( this.editor_id );
 
 					// Redo workflow if state has changed
-					if ( ! workflow || ( workflow.options && options.state !== workflow.options.state ) ) {
-						workflow = wp.media.editor.add( this.editor_id );
+					if ( ! workflow || ( workflow.options && workflow.state !== workflow.options.state ) ) {
+						workflow = wp.media.editor.add( this.editor_id, {} );
 					}
 
 					wp.media.frame = workflow;
