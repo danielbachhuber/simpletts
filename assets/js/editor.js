@@ -133,6 +133,7 @@
 								bitrate_mode: 'cbr',
 							});
 							attachment.set('filename','simpletts.mp3');
+							selection.multiple = false;
 							selection.add( attachment );
 						}
 					});
